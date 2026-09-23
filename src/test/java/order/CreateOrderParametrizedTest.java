@@ -2,6 +2,7 @@ package order;
 
 import base.BaseApiTest;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.Test;
@@ -39,6 +40,11 @@ public class CreateOrderParametrizedTest extends BaseApiTest {
     }
 
     @Test
+    @Description("Покрытие требований: \n" +
+            "можно указать один из цветов — BLACK или GREY, \n" +
+            "можно указать оба цвета, \n" +
+            "можно совсем не указывать цвет, \n" +
+            "тело ответа содержит track")
     public void testCreateOrderWithDifferentColors() {
 
         Response response = createOrder(order);

@@ -2,12 +2,9 @@ package courier;
 
 import base.BaseCourierTest;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Issue;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import io.qameta.allure.junit4.DisplayName;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +29,8 @@ public class DeleteCourierTest extends BaseCourierTest {
 //__ТЕСТЫ_______________________________________________________________________________________________________________
     @Test
     @DisplayName("Успешное удаление существующего курьера")
+    @Description("Покрытие требования: \n" +
+            "успешный запрос возвращает ok: true")
     public void testDeleteCourierSuccess() {
 
         // Логинимся и получаем id курьера
@@ -48,6 +47,9 @@ public class DeleteCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке удаления курьера без id появляется ошибка 400")
+    @Description("Покрытие требований: \n" +
+            "если отправить запрос без id, вернётся ошибка, \n" +
+            "неуспешный запрос возвращает соответствующую ошибку")
     @Issue("BUG-3 Ошибка 404 \"Not Found.\" вместо 400")
     public void testDeleteCourierWithoutId() {
 
@@ -59,7 +61,10 @@ public class DeleteCourierTest extends BaseCourierTest {
     }
 
     @Test
-    @DisplayName("При попытке повторного удаления курьера (удаление с несуществующим id) появляется ошибка 404")
+    @DisplayName("При попытке повторного удаления курьера появляется ошибка 404")
+    @Description("Покрытие требований: \n" +
+            "если отправить запрос с несуществующим id, вернётся ошибка, \n" +
+            "неуспешный запрос возвращает соответствующую ошибку")
     @Issue("BUG-4 Лишняя точка в конце текста ошибки")
     public void testDeleteCourierAlreadyDeleted() {
 

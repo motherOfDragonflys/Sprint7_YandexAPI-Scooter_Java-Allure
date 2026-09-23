@@ -29,6 +29,10 @@ public class LoginCourierTest extends BaseCourierTest {
 //__ТЕСТЫ_______________________________________________________________________________________________________________
     @Test
     @DisplayName("Успешный логин существующего курьера")
+    @Description("Покрытие требований: \n" +
+            "курьер может авторизоваться, \n" +
+            "для авторизации нужно передать все обязательные поля, \n" +
+            "успешный запрос возвращает id")
     public void testLoginCourierSuccess() {
 
         Response response = loginCourier(courier);
@@ -39,6 +43,8 @@ public class LoginCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке входа с неверным паролем для существующего логина появляется 404")
+    @Description("Покрытие требования: \n" +
+            "система вернёт ошибку, если неправильно указать логин или пароль")
     public void testLoginCourierWithWrongPassword() {
 
         // Меняем пароль на неверный — только в courier
@@ -54,6 +60,8 @@ public class LoginCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке входа с неверным логином, но существующим паролем появляется ошибка 404")
+    @Description("Покрытие требования: \n" +
+            "система вернёт ошибку, если неправильно указать логин или пароль")
     public void testLoginCourierWithWrongLogin() {
 
         // Меняем логин на несуществующий — только в courier
@@ -69,6 +77,8 @@ public class LoginCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке входа c несуществующей парой логин+пароль курьера появляется ошибка 404")
+    @Description("Покрытие требования: \n" +
+            "если авторизоваться под несуществующим пользователем, запрос возвращает ошибку")
     public void testLoginCourierNonExistent() {
 
         // Генерируем случайного курьера, но не создаём его в API (в before создастся, но его не используем)
@@ -84,6 +94,8 @@ public class LoginCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке входа без пароля появляется ошибка 400")
+    @Description("Покрытие требования: \n" +
+            "если какого-то поля нет, запрос возвращает ошибку")
     @Issue("BUG-2 Ответ 504 вместо 400 ")
     public void testLoginCourierWithoutPassword() {
 
@@ -97,6 +109,8 @@ public class LoginCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При попытке входа без логина появляется ошибка 400")
+    @Description("Покрытие требования: \n" +
+            "если какого-то поля нет, запрос возвращает ошибку")
     public void testLoginCourierWithoutLogin() {
 
         courier.setLogin(null);

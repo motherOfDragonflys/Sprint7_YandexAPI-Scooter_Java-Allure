@@ -2,6 +2,7 @@ package order;
 
 import base.BaseApiTest;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.restassured.response.Response;
 import io.qameta.allure.Feature;
@@ -17,6 +18,8 @@ public class GetOrdersListTest extends BaseApiTest {
 
     @Test
     @DisplayName("Успешное получение списка заказов без courierId")
+    @Description("Покрытие требования: \n" +
+            "в тело ответа возвращается список заказов")
     public void testGetOrdersListReturnsList() {
 
         Response response = getOrdersList(null);
@@ -27,6 +30,8 @@ public class GetOrdersListTest extends BaseApiTest {
 
     @Test
     @DisplayName("Появление ошибки 404 при запросе списка для несуществующего курьера")
+    @Description("Покрытие требования из документации апидок: \n" +
+            "Запрос c несуществующим id вызывает соответствующий Message")
     public void testGetOrdersListForNonExistentCourier() {
 
         int courierId = 999999999;

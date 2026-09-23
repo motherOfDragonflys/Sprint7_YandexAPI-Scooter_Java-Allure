@@ -2,10 +2,7 @@ package order;
 
 import base.BaseOrderTest;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -74,6 +71,8 @@ public class AcceptOrderTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Успешное принятие заказа")
+    @Description("Покрытие требования: \n" +
+            "успешный запрос возвращает ok: true")
     public void testAcceptOrderSuccess() {
 
         Response response = acceptOrder(createdOrderId, validCourierId);
@@ -84,6 +83,8 @@ public class AcceptOrderTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Появляется ошибка 400 при отсутствии id курьера")
+    @Description("Покрытие требования: \n" +
+            "если не передать id курьера, запрос вернёт ошибку")
     public void testAcceptOrderWithoutCourierId() {
 
         Response response = acceptOrderWithoutCourierId(null);
@@ -94,6 +95,8 @@ public class AcceptOrderTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Появляется ошибка 404 при передаче несуществующего id курьера")
+    @Description("Покрытие требования: \n" +
+            "если передать неверный id курьера, запрос вернёт ошибку")
     public void testAcceptOrderInvalidCourierId() {
 
         Response response = acceptOrder(createdOrderId, 999999);
@@ -104,6 +107,8 @@ public class AcceptOrderTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Появляется ошибка 400 при отсутствии id заказа")
+    @Description("Покрытие требования: \n" +
+            "если не передать номер заказа, запрос вернёт ошибку")
     @Issue("BUG-5 Ошибка 404 \"Not Found.\" вместо 400")
     public void testAcceptOrderWithoutOrderId() {
 
@@ -115,6 +120,8 @@ public class AcceptOrderTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Появляется ошибка 404 при передаче несуществующего id заказа")
+    @Description("Покрытие требования: \n" +
+            "если передать неверный номер заказа, запрос вернёт ошибку")
     public void testAcceptOrderInvalidOrderId() {
         Response response = acceptOrder(999999, validCourierId);
 

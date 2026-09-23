@@ -2,6 +2,7 @@ package order;
 
 import base.BaseOrderTest;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.restassured.response.Response;
 import io.qameta.allure.junit4.DisplayName;
@@ -19,6 +20,8 @@ public class GetOrderByIdTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Получение заказа по номеру заказа возвращает объект с заказом")
+    @Description("Покрытие требования: \n" +
+            "успешный запрос возвращает объект с заказом")
     public void testGetOrderByTrackSuccess() {
         // id создан в Before (validTrackId)
         Response response = getOrderByTrack(validTrackId);
@@ -39,6 +42,8 @@ public class GetOrderByIdTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Запрос без номера заказа возвращает ошибку 400")
+    @Description("Покрытие требования: \n" +
+            "запрос без номера заказа возвращает ошибку")
     public void testGetOrderByTrackMissingTrack() {
 
         Response response = getOrderByTrack(null);
@@ -50,6 +55,8 @@ public class GetOrderByIdTest extends BaseOrderTest {
 
     @Test
     @DisplayName("Запрос с несуществующим заказом возвращает ошибку 404")
+    @Description("Покрытие требования: \n" +
+            "запрос с несуществующим заказом возвращает ошибку")
     public void testGetOrderByTrackNonExistentTrack() {
         // Берем заведомо несуществующий трек
         int nonExistentTrack = 0;

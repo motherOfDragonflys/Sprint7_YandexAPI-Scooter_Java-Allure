@@ -2,6 +2,7 @@ package courier;
 
 import base.BaseCourierTest;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.Test;
 import io.qameta.allure.Feature;
@@ -27,20 +28,28 @@ public class CreateCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("Успешное создание курьера с валидными данными")
+    @Description("Покрытие требований: \n" +
+            "курьера можно создать, \n" +
+            "чтобы создать курьера, нужно передать в ручку все обязательные поля, \n" +
+            "запрос возвращает правильный код ответа, \n" +
+            "успешный запрос возвращает ok: true")
     public void testCreateCourierSuccess() {
 
         courier  = randomCourier();
 
         Response response = createCourier(courier);
 
+        rememberIfCreated(response, courier);
+
         checkStatusCode(response, 201);
         checkOkField(response, true);
 
-        rememberIfCreated(response, courier);
     }
 
     @Test
     @DisplayName("При создании одинаковых курьеров появляется ошибка 409")
+    @Description("Покрытие требования: \n" +
+            "нельзя создать двух одинаковых курьеров")
     @Issue("BUG-1 Отличие текста ошибки")
     public void testGetConflictWhenTryCreateDoubleCourier() {
 
@@ -63,6 +72,8 @@ public class CreateCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При создании курьера c уже существующим логином появляется ошибка 409")
+    @Description("Покрытие требования: \n" +
+            "если создать пользователя с логином, который уже есть, возвращается ошибка")
     @Issue("BUG-1 Отличие текста ошибки")
     public void testGetConflictWhenTryCreateCourierWithCreatedLogin() {
 
@@ -87,6 +98,8 @@ public class CreateCourierTest extends BaseCourierTest {
 
     @Test
     @DisplayName("При создании курьера без пароля появляется ошибка 400")
+    @Description("Покрытие требования: \n" +
+            "если одного из полей нет, запрос возвращает ошибку")
     public void testGetBadRequestWhenTryCreateCourierWithoutPassword() {
 
         courier = randomCourier();
@@ -95,14 +108,17 @@ public class CreateCourierTest extends BaseCourierTest {
 
         Response response = createCourier(courier);
 
+        rememberIfCreated(response, courier);
+
         checkStatusCode(response, 400);
         checkErrorMessage(response, "Недостаточно данных для создания учетной записи");
 
-        rememberIfCreated(response, courier);
     }
 
     @Test
     @DisplayName("При создании курьера без логина появляется ошибка 400")
+    @Description("Покрытие требования: \n" +
+            "если одного из полей нет, запрос возвращает ошибку")
     public void testGetBadRequestWhenTryCreateCourierWithoutLogin() {
 
         courier = randomCourier();
@@ -111,9 +127,10 @@ public class CreateCourierTest extends BaseCourierTest {
 
         Response response = createCourier(courier);
 
+        rememberIfCreated(response, courier);
+
         checkStatusCode(response, 400);
         checkErrorMessage(response, "Недостаточно данных для создания учетной записи");
 
-        rememberIfCreated(response, courier);
     }
 }
