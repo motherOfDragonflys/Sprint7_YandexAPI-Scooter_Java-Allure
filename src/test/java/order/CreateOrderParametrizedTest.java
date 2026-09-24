@@ -2,6 +2,7 @@ package order;
 
 import base.BaseApiTest;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -23,10 +24,11 @@ import static data.OrderData.*;
 public class CreateOrderParametrizedTest extends BaseApiTest {
 
     private final OrderModel order;
+    private final String testName;
 
-    @SuppressWarnings("unused") //testName для названий тестовых прогонов
     public CreateOrderParametrizedTest(OrderModel order, String testName) {
         this.order = order;
+        this.testName = testName;
     }
 
     @Parameterized.Parameters(name = "{1}")
@@ -46,6 +48,8 @@ public class CreateOrderParametrizedTest extends BaseApiTest {
             "можно совсем не указывать цвет, \n" +
             "тело ответа содержит track")
     public void testCreateOrderWithDifferentColors() {
+
+        Allure.getLifecycle().updateTestCase(t -> t.setName(testName));
 
         Response response = createOrder(order);
 
